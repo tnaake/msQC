@@ -1052,16 +1052,16 @@ test_that("calculateMetricsFromMsExperiment, format = 'mzQC'.", {
 
 ## START unit test calculateMetrics ##
 ## calculate the metrics by the wrapper function
-suppressWarnings(
-    metrics_spectra_wrapper <- calculateMetrics(object = spectra,
-        metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
-        relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
-suppressWarnings(
-    metrics_msexp_wrapper <- calculateMetrics(object = msexp,
-        metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
-        relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
-
 test_that("calculateMetrics, format = 'mzQC'.", {
+    
+    suppressWarnings(
+        metrics_spectra_wrapper <- calculateMetrics(object = spectra,
+            metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
+            relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
+    suppressWarnings(
+        metrics_msexp_wrapper <- calculateMetrics(object = msexp,
+            metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
+            relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
     
     ## metrics_spectra_wrapper
     expect_equal(length(metrics_spectra_wrapper), 2)
