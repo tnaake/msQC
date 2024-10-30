@@ -601,13 +601,14 @@ test_that("calculateMetrics", {
 ## calculate the metrics from Spectra
 dO <- unique(spectra$dataOrigin)
 spectra_1 <- spectra[spectra$dataOrigin == dO[1], ]
-suppressWarnings(metrics_spectra_1 <- calculateMetricsFromOneSampleSpectra(
-    spectra = spectra_1, metrics = metrics, filterEmptySpectra = FALSE, 
-    msLevel = 1, relativeTo = "Q1", mode = "TIC", change = "jump", 
-    format = "mzQC"))
 
 ## START unit test calculateMetricsFromOneSampleSpectra ## 
 test_that("calculateMetricsFromOneSampleSpectra, format = 'mzQC'.", {
+    
+    metrics_spectra_1 <- calculateMetricsFromOneSampleSpectra(
+        spectra = spectra_1, metrics = metrics, filterEmptySpectra = FALSE, 
+        msLevel = 1, relativeTo = "Q1", mode = "TIC", change = "jump", 
+        format = "mzQC")
     ## spectra_1
     expect_equal(length(metrics_spectra_1), 12)
     expect_is(metrics_spectra_1, "numeric")
@@ -618,10 +619,10 @@ test_that("calculateMetricsFromOneSampleSpectra, format = 'mzQC'.", {
 ## START unit test calculateMetricsFromSpectra ##
 ## calculate the metrics from Spectra
 test_that("calculateMetricsFromSpectra, format = 'mzQC'.", {
-    suppressWarnings(
-        metrics_spectra <- calculateMetricsFromSpectra(spectra = spectra,
+   
+   metrics_spectra <- calculateMetricsFromSpectra(spectra = spectra,
             metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
-            relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
+            relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC")
     
     expect_equal(length(metrics_spectra), 2)
     expect_equal(is(metrics_spectra[[1]]), c("MzQCmzQC", "envRefClass", 
@@ -846,11 +847,11 @@ spectra(msexp) <- Spectra(fls, backend = MsBackendMzR())
 ## additional parameters passed to the quality metrics functions
 ## (msLevel is an argument of areaUnderTic and msSignal10xChange,
 ## relativeTo is an argument of msSignal10xChange) passed to ...
-suppressWarnings(metrics_msexp <- calculateMetricsFromMsExperiment(msexp = msexp, 
-    metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
-    relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
-
 test_that("calculateMetricsFromMsExperiment, format = 'mzQC'.", {
+    suppressWarnings(metrics_msexp <- calculateMetricsFromMsExperiment(msexp = msexp, 
+        metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
+        relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
+    
     expect_equal(length(metrics_msexp), 2)
     expect_equal(is(metrics_msexp[[1]]), c("MzQCmzQC", "envRefClass", 
         ".environment", "refClass", "environment", "refObject"))
