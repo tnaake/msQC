@@ -617,12 +617,12 @@ test_that("calculateMetricsFromOneSampleSpectra, format = 'mzQC'.", {
 
 ## START unit test calculateMetricsFromSpectra ##
 ## calculate the metrics from Spectra
-suppressWarnings(
-    metrics_spectra <- calculateMetricsFromSpectra(spectra = spectra,
-        metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
-        relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
-
 test_that("calculateMetricsFromSpectra, format = 'mzQC'.", {
+    suppressWarnings(
+        metrics_spectra <- calculateMetricsFromSpectra(spectra = spectra,
+            metrics = metrics, filterEmptySpectra = FALSE, msLevel = 1, 
+            relativeTo = "Q1", mode = "TIC", change = "jump", format = "mzQC"))
+    
     expect_equal(length(metrics_spectra), 2)
     expect_equal(is(metrics_spectra[[1]]), c("MzQCmzQC", "envRefClass", 
         ".environment", "refClass", "environment", "refObject"))
