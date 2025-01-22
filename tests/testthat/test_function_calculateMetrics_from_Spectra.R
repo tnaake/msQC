@@ -7,7 +7,7 @@ spectra <- Spectra(fls, backend = MsBackendMzR())
 
 ## build the results
 ## define the quality metrics to be calculated
-metrics <- c("chromatographyDuration", "ticQuartersRtFraction", 
+metrics <- c("chromatographyDuration", "ticQuantileRtFraction", 
     "ticQuartileToQuartileLogRatio", "numberSpectra", "areaUnderTic", 
     "msSignal10xChange")
 
@@ -43,9 +43,9 @@ suppressWarnings(
         msLevel = 1, relativeTo = "Q1", mode = "TIC", change = "jump"))
 
 ## START unit test calculateMetricsFromOneSampleSpectra ## 
-colnames_metrics <- c("chromatographyDuration", "ticQuartersRtFraction.0%",                  
-    "ticQuartersRtFraction.25%", "ticQuartersRtFraction.50%",
-    "ticQuartersRtFraction.75%", "ticQuartersRtFraction.100%",
+colnames_metrics <- c("chromatographyDuration", "ticQuantileRtFraction.0%",                  
+    "ticQuantileRtFraction.25%", "ticQuantileRtFraction.50%",
+    "ticQuantileRtFraction.75%", "ticQuantileRtFraction.100%",
     "ticQuartileToQuartileLogRatio.Q2/Q1",
     "ticQuartileToQuartileLogRatio.Q3/Q1",
     "ticQuartileToQuartileLogRatio.Q4/Q1",
@@ -175,9 +175,9 @@ test_that("calculateMetricsFromOneSampleSpectra", {
     expect_equal(attr(metrics_spectra_1, "chromatographyDuration"), "MS:4000053")
     expect_equal(attr(metrics_spectra_1_filtered, "chromatographyDuration"), 
         "MS:4000053")
-    expect_equal(attr(metrics_spectra_1, "ticQuartersRtFraction"), "MS:4000054")
-    expect_equal(attr(metrics_spectra_1_filtered, "ticQuartersRtFraction"), 
-        "MS:4000054")
+    expect_equal(attr(metrics_spectra_1, "ticQuantileRtFraction"), "MS:4000183")
+    expect_equal(attr(metrics_spectra_1_filtered, "ticQuantileRtFraction"), 
+        "MS:4000183")
     expect_equal(attr(metrics_spectra_1, "numberSpectra"), "MS:4000059")
     expect_equal(attr(metrics_spectra_1_filtered, "numberSpectra"), 
         "MS:4000059")
@@ -203,10 +203,10 @@ test_that("calculateMetricsFromOneSampleSpectra", {
         "MS:4000053")
     expect_equal(attr(metrics_spectra_2_filtered, "chromatographyDuration"), 
         "MS:4000053")
-    expect_equal(attr(metrics_spectra_2, "ticQuartersRtFraction"), 
-        "MS:4000054")
-    expect_equal(attr(metrics_spectra_2_filtered, "ticQuartersRtFraction"), 
-        "MS:4000054")
+    expect_equal(attr(metrics_spectra_2, "ticQuantileRtFraction"), 
+        "MS:4000183")
+    expect_equal(attr(metrics_spectra_2_filtered, "ticQuantileRtFraction"), 
+        "MS:4000183")
     expect_equal(attr(metrics_spectra_2, "numberSpectra"), 
         "MS:4000059")
     expect_equal(attr(metrics_spectra_2_filtered, "numberSpectra"), 
@@ -292,9 +292,9 @@ test_that("calculateMetricsFromSpectra", {
     expect_equal(attr(metrics_spectra, "chromatographyDuration"), "MS:4000053")
     expect_equal(attr(metrics_spectra_filtered, "chromatographyDuration"), 
         "MS:4000053")
-    expect_equal(attr(metrics_spectra, "ticQuartersRtFraction"), "MS:4000054")
-    expect_equal(attr(metrics_spectra_filtered, "ticQuartersRtFraction"), 
-        "MS:4000054")
+    expect_equal(attr(metrics_spectra, "ticQuantileRtFraction"), "MS:4000183")
+    expect_equal(attr(metrics_spectra_filtered, "ticQuantileRtFraction"), 
+        "MS:4000183")
     expect_equal(attr(metrics_spectra, "numberSpectra"), "MS:4000059")
     expect_equal(attr(metrics_spectra_filtered, "numberSpectra"), "MS:4000059")
     expect_equal(attr(metrics_spectra, "areaUnderTic"), "MS:4000155")
@@ -389,9 +389,9 @@ test_that("calculateMetricsFromMsExperiment", {
     expect_equal(attr(metrics_msexp, "chromatographyDuration"), "MS:4000053")
     expect_equal(attr(metrics_msexp_filtered, "chromatographyDuration"), 
                  "MS:4000053")
-    expect_equal(attr(metrics_msexp, "ticQuartersRtFraction"), "MS:4000054")
-    expect_equal(attr(metrics_msexp_filtered, "ticQuartersRtFraction"), 
-                 "MS:4000054")
+    expect_equal(attr(metrics_msexp, "ticQuantileRtFraction"), "MS:4000183")
+    expect_equal(attr(metrics_msexp_filtered, "ticQuantileRtFraction"), 
+                 "MS:4000183")
     expect_equal(attr(metrics_msexp, "numberSpectra"), "MS:4000059")
     expect_equal(attr(metrics_msexp_filtered, "numberSpectra"), "MS:4000059")
     expect_equal(attr(metrics_msexp, "areaUnderTic"), "MS:4000155")
@@ -543,14 +543,14 @@ test_that("calculateMetrics", {
         "MS:4000053")
     expect_equal(attr(metrics_msexp_wrapper_filtered, "chromatographyDuration"), 
         "MS:4000053")
-    expect_equal(attr(metrics_spectra_wrapper, "ticQuartersRtFraction"),
-        "MS:4000054")
-    expect_equal(attr(metrics_spectra_wrapper_filtered, "ticQuartersRtFraction"), 
-        "MS:4000054")
-    expect_equal(attr(metrics_msexp_wrapper, "ticQuartersRtFraction"),
-        "MS:4000054")
-    expect_equal(attr(metrics_msexp_wrapper_filtered, "ticQuartersRtFraction"), 
-        "MS:4000054")
+    expect_equal(attr(metrics_spectra_wrapper, "ticQuantileRtFraction"),
+        "MS:4000183")
+    expect_equal(attr(metrics_spectra_wrapper_filtered, "ticQuantileRtFraction"), 
+        "MS:4000183")
+    expect_equal(attr(metrics_msexp_wrapper, "ticQuantileRtFraction"),
+        "MS:4000183")
+    expect_equal(attr(metrics_msexp_wrapper_filtered, "ticQuantileRtFraction"), 
+        "MS:4000183")
     expect_equal(attr(metrics_spectra_wrapper, "numberSpectra"), 
         "MS:4000059")
     expect_equal(attr(metrics_spectra_wrapper_filtered, "numberSpectra"), 
@@ -688,16 +688,16 @@ test_that("calculateMetricsFromSpectra, format = 'mzQC'.", {
         metrics_spectra[[2]]$runQualities[[1]]$qualityMetrics[[1]]$unit, 
         list())
     
-    ## ticQuartersRtFraction
+    ## ticQuantileRtFraction
     expect_equal(
         metrics_spectra[[1]]$runQualities[[1]]$qualityMetrics[[2]]$accession, 
-        "MS:4000054")
+        "MS:4000183")
     expect_equal(
         metrics_spectra[[1]]$runQualities[[1]]$qualityMetrics[[2]]$name, 
-        "TIC quarters RT fraction")
+        "TIC quantile RT fraction")
     expect_equal(
         metrics_spectra[[1]]$runQualities[[1]]$qualityMetrics[[2]]$description, 
-        "\"The interval when the respective quarter of the TIC accumulates divided by retention time duration.\" [PSI:MS]")
+        "\"The interval when the respective quantile of the TIC accumulates divided by retention time duration. The number of values in the tuple implies the quantile mode.\" [PSI:MS]")
     expect_equal(
         metrics_spectra[[1]]$runQualities[[1]]$qualityMetrics[[2]]$value, 
         0, tolerance = 1e-06)
@@ -706,13 +706,13 @@ test_that("calculateMetricsFromSpectra, format = 'mzQC'.", {
         list())
     expect_equal(
         metrics_spectra[[2]]$runQualities[[1]]$qualityMetrics[[2]]$accession, 
-        "MS:4000054")
+        "MS:4000183")
     expect_equal(
         metrics_spectra[[2]]$runQualities[[1]]$qualityMetrics[[2]]$name, 
-        "TIC quarters RT fraction")
+        "TIC quantile RT fraction")
     expect_equal(
         metrics_spectra[[2]]$runQualities[[1]]$qualityMetrics[[2]]$description, 
-        "\"The interval when the respective quarter of the TIC accumulates divided by retention time duration.\" [PSI:MS]")
+        "\"The interval when the respective quantile of the TIC accumulates divided by retention time duration. The number of values in the tuple implies the quantile mode.\" [PSI:MS]")
     expect_equal(
         metrics_spectra[[2]]$runQualities[[1]]$qualityMetrics[[2]]$value, 
         0, tolerance = 1e-06)
@@ -917,16 +917,16 @@ test_that("calculateMetricsFromMsExperiment, format = 'mzQC'.", {
         metrics_msexp[[2]]$runQualities[[1]]$qualityMetrics[[1]]$unit, 
         list())
     
-    ## ticQuartersRtFraction
+    ## ticQuantileRtFraction
     expect_equal(
         metrics_msexp[[1]]$runQualities[[1]]$qualityMetrics[[2]]$accession, 
-        "MS:4000054")
+        "MS:4000183")
     expect_equal(
         metrics_msexp[[1]]$runQualities[[1]]$qualityMetrics[[2]]$name, 
-        "TIC quarters RT fraction")
+        "TIC quantile RT fraction")
     expect_equal(
         metrics_msexp[[1]]$runQualities[[1]]$qualityMetrics[[2]]$description, 
-        "\"The interval when the respective quarter of the TIC accumulates divided by retention time duration.\" [PSI:MS]")
+        "\"The interval when the respective quantile of the TIC accumulates divided by retention time duration. The number of values in the tuple implies the quantile mode.\" [PSI:MS]")
     expect_equal(
         metrics_msexp[[1]]$runQualities[[1]]$qualityMetrics[[2]]$value, 
         0, tolerance = 1e-06)
@@ -935,13 +935,13 @@ test_that("calculateMetricsFromMsExperiment, format = 'mzQC'.", {
         list())
     expect_equal(
         metrics_msexp[[2]]$runQualities[[1]]$qualityMetrics[[2]]$accession, 
-        "MS:4000054")
+        "MS:4000183")
     expect_equal(
         metrics_msexp[[2]]$runQualities[[1]]$qualityMetrics[[2]]$name, 
-        "TIC quarters RT fraction")
+        "TIC quantile RT fraction")
     expect_equal(
         metrics_msexp[[2]]$runQualities[[1]]$qualityMetrics[[2]]$description, 
-        "\"The interval when the respective quarter of the TIC accumulates divided by retention time duration.\" [PSI:MS]")
+        "\"The interval when the respective quantile of the TIC accumulates divided by retention time duration. The number of values in the tuple implies the quantile mode.\" [PSI:MS]")
     expect_equal(
         metrics_msexp[[2]]$runQualities[[1]]$qualityMetrics[[2]]$value, 
         0, tolerance = 1e-06)
@@ -1128,16 +1128,16 @@ test_that("calculateMetrics, format = 'mzQC'.", {
         metrics_spectra_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[1]]$unit, 
         list())
     
-    ## ticQuartersRtFraction
+    ## ticQuantileRtFraction
     expect_equal(
         metrics_spectra_wrapper[[1]]$runQualities[[1]]$qualityMetrics[[2]]$accession, 
-        "MS:4000054")
+        "MS:4000183")
     expect_equal(
         metrics_spectra_wrapper[[1]]$runQualities[[1]]$qualityMetrics[[2]]$name, 
-        "TIC quarters RT fraction")
+        "TIC quantile RT fraction")
     expect_equal(
         metrics_spectra_wrapper[[1]]$runQualities[[1]]$qualityMetrics[[2]]$description, 
-        "\"The interval when the respective quarter of the TIC accumulates divided by retention time duration.\" [PSI:MS]")
+        "\"The interval when the respective quantile of the TIC accumulates divided by retention time duration. The number of values in the tuple implies the quantile mode.\" [PSI:MS]")
     expect_equal(
         metrics_spectra_wrapper[[1]]$runQualities[[1]]$qualityMetrics[[2]]$value, 
         0, tolerance = 1e-06)
@@ -1146,13 +1146,13 @@ test_that("calculateMetrics, format = 'mzQC'.", {
         list())
     expect_equal(
         metrics_spectra_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[2]]$accession, 
-        "MS:4000054")
+        "MS:4000183")
     expect_equal(
         metrics_spectra_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[2]]$name, 
-        "TIC quarters RT fraction")
+        "TIC quantile RT fraction")
     expect_equal(
         metrics_spectra_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[2]]$description, 
-        "\"The interval when the respective quarter of the TIC accumulates divided by retention time duration.\" [PSI:MS]")
+        "\"The interval when the respective quantile of the TIC accumulates divided by retention time duration. The number of values in the tuple implies the quantile mode.\" [PSI:MS]")
     expect_equal(
         metrics_spectra_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[2]]$value, 
         0, tolerance = 1e-06)
@@ -1325,16 +1325,16 @@ test_that("calculateMetrics, format = 'mzQC'.", {
         metrics_msexp_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[1]]$unit, 
         list())
     
-    ## ticQuartersRtFraction
+    ## ticQuantileRtFraction
     expect_equal(
         metrics_msexp_wrapper[[1]]$runQualities[[1]]$qualityMetrics[[2]]$accession, 
-        "MS:4000054")
+        "MS:4000183")
     expect_equal(
         metrics_msexp_wrapper[[1]]$runQualities[[1]]$qualityMetrics[[2]]$name, 
-        "TIC quarters RT fraction")
+        "TIC quantile RT fraction")
     expect_equal(
         metrics_msexp_wrapper[[1]]$runQualities[[1]]$qualityMetrics[[2]]$description, 
-        "\"The interval when the respective quarter of the TIC accumulates divided by retention time duration.\" [PSI:MS]")
+        "\"The interval when the respective quantile of the TIC accumulates divided by retention time duration. The number of values in the tuple implies the quantile mode.\" [PSI:MS]")
     expect_equal(
         metrics_msexp_wrapper[[1]]$runQualities[[1]]$qualityMetrics[[2]]$value, 
         0, tolerance = 1e-06)
@@ -1343,13 +1343,13 @@ test_that("calculateMetrics, format = 'mzQC'.", {
         list())
     expect_equal(
         metrics_msexp_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[2]]$accession, 
-        "MS:4000054")
+        "MS:4000183")
     expect_equal(
         metrics_msexp_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[2]]$name, 
-        "TIC quarters RT fraction")
+        "TIC quantile RT fraction")
     expect_equal(
         metrics_msexp_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[2]]$description, 
-        "\"The interval when the respective quarter of the TIC accumulates divided by retention time duration.\" [PSI:MS]")
+        "\"The interval when the respective quantile of the TIC accumulates divided by retention time duration. The number of values in the tuple implies the quantile mode.\" [PSI:MS]")
     expect_equal(
         metrics_msexp_wrapper[[2]]$runQualities[[1]]$qualityMetrics[[2]]$value, 
         0, tolerance = 1e-06)

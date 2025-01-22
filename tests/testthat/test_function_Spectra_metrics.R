@@ -38,20 +38,20 @@ test_that("chromatographyDuration works properly.", {
 })
 ## END unit test chromatographyDuration ##
 
-## START unit test ticQuartersRtFraction ##
-test_that("ticQuartersRtFraction works properly.", {
-    expect_error(ticQuartersRtFraction(NULL), "unable to find an inherited method")
-    expect_error(ticQuartersRtFraction(NULL), "unable to find an inherited method")
-    suppressWarnings(tmp <- ticQuartersRtFraction(sps_sciex))
+## START unit test ticQuantileRtFraction ##
+test_that("ticQuantileRtFraction works properly.", {
+    expect_error(ticQuantileRtFraction(NULL), "unable to find an inherited method")
+    expect_error(ticQuantileRtFraction(NULL), "unable to find an inherited method")
+    suppressWarnings(tmp <- ticQuantileRtFraction(sps_sciex))
     expect_equal(as.numeric(tmp),
         c(0.0, 0.2010891, 0.4257983, 0.7247362, 1), tolerance = 1e-02)
     
     ## test attributes 
-    expect_equal(names(attributes(tmp)), c("names", "ticQuartersRtFraction"))
+    expect_equal(names(attributes(tmp)), c("names", "ticQuantileRtFraction"))
     expect_equal(names(tmp), c("0%", "25%", "50%", "75%", "100%"))
-    expect_equal(attr(tmp, "ticQuartersRtFraction"), "MS:4000054")
+    expect_equal(attr(tmp, "ticQuantileRtFraction"), "MS:4000183")
 })
-## END unit test ticQuartersRtFraction ##
+## END unit test ticQuantileRtFraction ##
 
 ## START unit test rtOverMsQuarters ##
 test_that("rtOverMsQuarters works properly.", {

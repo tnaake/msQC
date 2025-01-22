@@ -68,14 +68,21 @@ chromatographyDuration <- function(spectra, ...) {
     res
 }
 
-#' @name ticQuartersRtFraction
+#' @name ticQuantileRtFraction
 #' 
-#' @title TIC quarters RT fraction (MS:4000054)
+#' @title TIC quantile RT fraction (MS:4000183)
 #' 
 #' @description
-#' MS:4000054
-#' "The interval when the respective quarter of the TIC accumulates divided by 
-#' retention time duration." [PSI:MS] \cr
+#' MS:4000183
+#' "The interval when the respective quantile of the TIC accumulates divided by 
+#' retention time duration. The number of values in the tuple implies the 
+#' quantile mode." [PSI:MS] \cr
+#' 
+#' The metric informs about the dynamic range of the acquisition along the 
+#' chromatographic separation. The metric provides information on the sample 
+#' (compound) flow along the chromatographic run, potentially revealing poor 
+#' chromatographic performance, such as the absence of a signal for a 
+#' significant portion of the run.
 #' 
 #' The metric is calculated as follows: \cr
 #' (1) the \code{Spectra} object is ordered according to the retention time, \cr 
@@ -91,7 +98,7 @@ chromatographyDuration <- function(spectra, ...) {
 #' cumulative TIC is calculated and returned. \cr
 #' 
 #' @details
-#' MS:4000054
+#' MS:4000183
 #' synonym: "RT-TIC-Q1" RELATED [PMID:24494671] \cr
 #' synonym: "RT-TIC-Q2" RELATED [PMID:24494671] \cr
 #' synonym: "RT-TIC-Q3" RELATED [PMID:24494671] \cr
@@ -101,8 +108,9 @@ chromatographyDuration <- function(spectra, ...) {
 #' relationship: has_metric_category MS:4000012 ! single run based metric \cr
 #' relationship: has_metric_category MS:4000016 ! retention time metric \cr
 #' relationship: has_metric_category MS:4000017 ! chromatogram metric \cr
-#' relationship: has_value_type xsd:float ! The allowed value-type for this CV term \cr
 #' relationship: has_units UO:0000191 ! fraction \cr
+#' relationship: has_value_concept STATO:0000291 \cr
+#' relationship: has_value_type xsd:float \cr#' 
 #' 
 #' @param spectra \code{Spectra} object
 #' @param probs \code{numeric} defining the quantiles. See \code{probs = seq(0, 1, 0.25)}.
@@ -144,8 +152,8 @@ chromatographyDuration <- function(spectra, ...) {
 #'     c(0.459, 2.585, 2.446, 0.508, 8.968, 0.524, 0.974, 100.0, 40.994))
 #' spd$rtime <- c(9.44, 9.44, 15.84)
 #' sps <- Spectra(spd)
-#' ticQuartersRtFraction(spectra = sps, msLevel = 2L)
-ticQuartersRtFraction <- function(spectra, probs = seq(0, 1, 0.25),
+#' ticQuantileRtFraction(spectra = sps, msLevel = 2L)
+ticQuantileRtFraction <- function(spectra, probs = seq(0, 1, 0.25),
     msLevel = 1L, relative = TRUE, ...) {
     
     ## truncate spectra based on the MS level
@@ -177,7 +185,7 @@ ticQuartersRtFraction <- function(spectra, probs = seq(0, 1, 0.25),
     
     ## add attributes and return
     attributes(res) <- list(names = paste0(probs * 100, "%"), 
-        ticQuartersRtFraction = "MS:4000054")
+        ticQuantileRtFraction = "MS:4000183")
     res
 }
 
