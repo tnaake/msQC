@@ -1,3 +1,9 @@
+# MsQuality 1.7
+
+## Changes in version 1.7.1
+- rename ticQuartersRtFraction to ticQuantileRtFraction
+- update tests after update of OBO file / rmzqc
+
 # MsQuality 1.1
 
 ## Changes in version 1.1.3
